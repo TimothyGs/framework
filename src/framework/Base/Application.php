@@ -5,7 +5,7 @@ namespace Framework\Base;
 use Framework\Base\Http\Core;
 use Framework\Base\Injector\Injector;
 
-class Application
+class Application extends Injector
 {
     protected $publicPath;
 
@@ -22,6 +22,16 @@ class Application
     public function getHttpCore()
     {
         return $this->httpCore;
+    }
+
+    public function mapEntities()
+    {
+
+    }
+
+    public function build($contract)
+    {
+        parent::build($contract);
     }
 
 }

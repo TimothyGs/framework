@@ -2,21 +2,18 @@
 
 namespace Framework\Base\Entities;
 
-class Repository
+abstract class Repository
 {
     protected $db;
+
+    protected $repository;
 
     public function __construct(DatabaseInterface $database)
     {
         $this->db = $database;
     }
 
-    public function getById($id)
-    {
-
-    }
-
-    public function getByIndex($index = '')
+    public function get($id)
     {
 
     }

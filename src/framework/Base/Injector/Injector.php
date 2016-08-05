@@ -6,25 +6,90 @@ use ReflectionClass;
 
 class Injector
 {
-    private static $map;
+    private $map;
 
-    public function bind($string, $class = null)
+    private $resolved = [];
+
+    public function bind($alias, $contract = null)
     {
-        $string = $this->normalize($string);
-        $class  = $this->normalize($class);
-
-        $this->map[$string] = $class;
+        $this->map[$alias] = $contract;
     }
 
-    public function getByName($string)
+    public function build($contract)
     {
-        $string = $this->normalize($string);
-        return new ReflectionClass($this->map[$string]);
+        $reflector = new ReflectionClass($contract);
+
+        if (!$reflector->isInstantiable())
+        {
+            throw new Exception('u wat mate');
+        }
+
+        $constructor = $reflector->getConstructor();
+
+        if (is_null($constructor))
+        {
+            $class = new $contract;
+            return $class;
+        }
+
+        $parameters = $constructor->getParameters();
+        $dependencies = $this->getDependencies($parameters);
+
+        return $reflector->newInstanceArgs($dependencies);
     }
 
-    protected function normalize($service)
+    public function getMap()
     {
-        return is_string($service) ? ltrim($service, '\\') : $service;
+        return $this->map;
     }
 
+    public function getDependencies($parameters)
+    {
+        $dependencies = [];
+
+        foreach ($parameters as $parameter)
+        {
+            $dependency = $parameter->getClass();
+
+            if (is_null($dependency))
+            {
+                $dependencies[] = $this->resolveNonClass($parameter);
+            }
+            else
+            {
+                if (in_array($dependency->name, $this->resolved)){
+                    throw new \RuntimeException('Unresolvable circular dependencies detected');
+                }
+                $this->resolved[] = $dependency->name;
+
+                if (isset($this->map[$dependency->name]))
+                {
+                    $dependencies[] = $this->build($this->map[$dependency->name]);
+                }
+                else{
+                    $dependencies[] = $this->build($dependency->name);
+                }
+            }
+        }
+
+        return $dependencies;
+    }
+
+    public function resolveNonClass($parameter)
+    {
+        if ($parameter->isDefaultValueAvailable())
+        {
+            return $parameter->getDefaultValue();
+        }
+
+        throw new Exception('pls no');
+    }
+
+    public function instance($alias)
+    {
+        if (isset($this->map[$alias]))
+        {
+            return $this->build($this->map[$alias]);
+        }
+    }
 }
