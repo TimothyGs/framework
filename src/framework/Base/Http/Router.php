@@ -15,7 +15,7 @@ class Router implements RouterContract
 
     public function __construct($method = '', $path = '', callable $closure = null)
     {
-        $this->router = new Klein(); //
+        $this->router = new Klein();
 
         $this->mapRoutes(new Route());
 
