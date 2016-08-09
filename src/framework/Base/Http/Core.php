@@ -2,9 +2,10 @@
 
 namespace Framework\Base\Http;
 
-use Framework\Base\Contracts\RouterContract;
+use Framework\Base\Contracts\Http\Core as CoreContract;
+use Framework\Base\Contracts\Http\RouterContract;
 
-class Core
+class Core implements CoreContract
 {
     protected $application;
 
@@ -19,7 +20,7 @@ class Core
         $this->router      = $router;
     }
 
-    public function getRouter($method, $path, $closure)
+    public function getRouter($method = '', $path = '', callable $closure = null)
     {
         return $this->router->__construct($method, $path, $closure);
     }

@@ -1,7 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Timothy
- * Date: 08/08/16
- * Time: 12:54
- */
+
+namespace Framework\Base\Http;
+
+trait RouteResolvingTrait
+{
+
+}

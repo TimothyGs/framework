@@ -3,6 +3,7 @@
 namespace Framework\Base\Injector;
 
 use ReflectionClass;
+use Exception;
 
 class Injector
 {
@@ -21,7 +22,7 @@ class Injector
 
         if (!$reflector->isInstantiable())
         {
-            throw new Exception('u wat mate');
+            throw new Exception('Object is not instantiable');
         }
 
         $constructor = $reflector->getConstructor();
