@@ -2,7 +2,7 @@
 
 namespace Framework\Base;
 
-use Framework\Base\Http\Core;
+use Framework\Base\Contracts\Http\Core;
 use Framework\Base\Injector\Injector;
 
 class Application extends Injector
@@ -34,4 +34,10 @@ class Application extends Injector
         parent::build($contract);
     }
 
+    public function getCurrentRoute()
+    {
+        return $this->getHttpCore()->getRouter()->currentRoute();
+    }
+    
+    public function get
 }
