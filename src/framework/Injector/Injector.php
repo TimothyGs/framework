@@ -11,9 +11,9 @@ class Injector
 
     private $resolved = [];
 
-    public function bind($alias, $contract = null)
+    public function bind($alias, $binding = null)
     {
-        $this->map[$alias] = $contract;
+        $this->map[$alias] = $binding;
     }
 
     public function build($contract)
@@ -39,6 +39,14 @@ class Injector
         return $reflector->newInstanceArgs($dependencies);
     }
 
+    public function map($classmap)
+    {
+        foreach ($classmap as $alias => $binding)
+        {
+            $this->map[$alias] = $binding;
+        }
+    }
+
     public function getMap()
     {
         return $this->map;
@@ -50,6 +58,9 @@ class Injector
 
         foreach ($parameters as $parameter)
         {
+            /**
+             * @var ReflectionClass $dependency
+             */
             $dependency = $parameter->getClass();
 
             if (is_null($dependency))
@@ -68,6 +79,10 @@ class Injector
                     $dependencies[] = $this->build($this->map[$dependency->name]);
                 }
                 else{
+                    if (($dependency->isAbstract() || $dependency->isInterface()))
+                    {
+                        continue;
+                    }
                     $dependencies[] = $this->build($dependency->name);
                 }
             }
