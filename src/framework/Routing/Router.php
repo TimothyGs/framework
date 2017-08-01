@@ -1,9 +1,9 @@
 <?php
 
-namespace Framework\Base\Routing;
+namespace Framework\Routing;
 
-use Framework\Base\Routing\Router\Contracts\RouterContract;
-use Framework\Base\Routing\RouteResolvingTrait;
+use Framework\Routing\Router\Contracts\RouterContract;
+use Framework\Routing\RouteResolvingTrait;
 
 class Router
 {

@@ -1,7 +1,16 @@
 <?php
+
+require_once  __DIR__ . '/../vendor/autoload.php';
+
+$container = new \Framework\Injector\Injector();
+
+$mappings = [
+    Framework\Routing\Router\Contracts\RouterContract::class => \Framework\Routing\Router\KleinRouter::class
+];
+
+$container->map($mappings);
+
 /**
- * Created by PhpStorm.
- * User: Timothy
- * Date: 01/08/2017
- * Time: 12:07
+ * @var \Framework\Routing\Router\Contracts\RouterContract $router
  */
+$app = $container->build(\Framework\Application::class);

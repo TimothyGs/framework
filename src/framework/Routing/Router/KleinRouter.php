@@ -1,10 +1,10 @@
 <?php
 
-namespace Framework\Base\Routing\Router;
+namespace Framework\Routing\Router;
 
-use Framework\Base\Routing\Router\Contracts\RouterContract;
+use Framework\Routing\Router\Contracts\RouterContract;
 use Klein\Klein;
-use Framework\Base\Routing\Router;
+use Framework\Routing\Router;
 
 class KleinRouter implements RouterContract
 {

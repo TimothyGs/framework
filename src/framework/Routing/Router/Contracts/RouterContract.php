@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Base\Routing\Router\Contracts;
+namespace Framework\Routing\Router\Contracts;
 
 interface RouterContract
 {

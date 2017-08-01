@@ -1,8 +1,8 @@
 <?php
 
-namespace Framework\Base;
+namespace Framework;
 
-use Framework\Base\Routing\Router\Contracts\RouterContract as Router;
+use Framework\Routing\Router\Contracts\RouterContract as Router;
 
 class Application
 {

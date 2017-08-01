@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Base\Injector;
+namespace Framework\Injector;
 
 use ReflectionClass;
 use Exception;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Base\Entities\Model;
+namespace Framework\Entities\Model;
 
 class Model
 {
