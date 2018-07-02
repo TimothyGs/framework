@@ -2,7 +2,7 @@
 
 require_once  __DIR__ . '/../vendor/autoload.php';
 
-$container = new \Framework\Injector\Injector();
+$container = new \Framework\Core\Injector();
 
 $mappings = [
     Framework\Routing\Router\Contracts\RouterContract::class => \Framework\Routing\Router\KleinRouter::class

@@ -1,6 +1,5 @@
 <?php
-
-namespace Framework\Injector;
+namespace Framework\Core;
 
 use ReflectionClass;
 use Exception;
@@ -33,7 +32,7 @@ class Injector
             return $class;
         }
 
-        $parameters = $constructor->getParameters();
+        $parameters   = $constructor->getParameters();
         $dependencies = $this->getDependencies($parameters);
 
         return $reflector->newInstanceArgs($dependencies);
@@ -56,11 +55,11 @@ class Injector
     {
         $dependencies = [];
 
+        /**
+         * @var \ReflectionParameter[] $parameters
+         */
         foreach ($parameters as $parameter)
         {
-            /**
-             * @var ReflectionClass $dependency
-             */
             $dependency = $parameter->getClass();
 
             if (is_null($dependency))
@@ -91,6 +90,11 @@ class Injector
         return $dependencies;
     }
 
+    /**
+     * @param \ReflectionParameter $parameter
+     * @return mixed
+     * @throws Exception
+     */
     public function resolveNonClass($parameter)
     {
         if ($parameter->isDefaultValueAvailable())
@@ -98,7 +102,7 @@ class Injector
             return $parameter->getDefaultValue();
         }
 
-        throw new Exception('pls no');
+        throw new Exception('Unable to bind parameter to empty value. Please provide value for ' . $parameter->getClass() . '::' . $parameter->getName());
     }
 
     public function instance($alias)
