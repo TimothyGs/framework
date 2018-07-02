@@ -1,6 +1,4 @@
 /vendor
-/.vagrant
 /.idea
 /index.php
 /.htaccess
-/src/app

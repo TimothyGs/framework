@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: .docker/
+    command: php -S 0.0.0.0:8087 -t /var/www/html/public
+    pid: 'host'
+    links:
+      - db
+    ports:
+      - "8087:8087"
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: framework
+    expose:
+      - "3306"

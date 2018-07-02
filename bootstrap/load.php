@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 
 require_once  __DIR__ . '/../vendor/autoload.php';
 
@@ -11,6 +12,6 @@ $mappings = [
 $container->map($mappings);
 
 /**
- * @var \Framework\Routing\Router\Contracts\RouterContract $router
+ * @var \Framework\Application $app
  */
 $app = $container->build(\Framework\Application::class);

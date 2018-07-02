@@ -6,7 +6,7 @@ use Exception;
 
 class Injector
 {
-    private $map;
+    private $map = [];
 
     private $resolved = [];
 
